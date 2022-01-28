@@ -1,15 +1,44 @@
-.Login {
-    background-color: bisque;
+#box{
+    margin-top: 20px;
+    margin-left: 20px;
 }
 
-.myHeader {
-    background-color: aqua;
-}
-
-.fieldset {
+fieldset {
     border-radius: 2px;
     border-style: solid;
-    max-width: 500px;
-    display: block;
+    /* display: block; */
     float: left;
+    width: 30%;
+    padding: 15px;
+    border-color: rgb(124, 27, 27);
+    border-width: 8px;
+    background-color: rgb(205, 201, 241);
+}
+h1 {
+    text-align: left;
+    background-color: chocolate;
+    margin: 0;
+}
+
+input{
+    font-size: 25px;
+}
+
+legend {
+    font-family: fantasy;
+    font-weight: 600px;
+    font-size: 25px;
+    color: rgb(58, 3, 3);
+}
+
+.Login {
+    background-color: chocolate;
+}
+
+#btn {
+    border-radius: 5px;
+    background-color: coral;
+    padding: 10px;
+    margin-left: 70%;
+    font-size: 20px;
 }
