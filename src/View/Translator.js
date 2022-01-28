@@ -1,6 +1,6 @@
 import './CSS/Translator.css';
 import { useContext, useState } from "react";
-import { WordsContext } from "../components/Context/WordsContext";
+import { WordsContext } from "../Components/Context/WordsContext";
 import picture from "../assets/signs/a.png";
 import { pictures } from '../images.js';
 
