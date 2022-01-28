@@ -1,19 +1,24 @@
 import './CSS/Translator.css';
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { WordsContext } from "../components/Context/WordsContext";
 
 
 function Translator() {
 
-const [text, setText] = useState("")
-const [isClick, setClick] = useState(false)
+    const [text, setText] = useState("")
+    const [isClick, setClick] = useState(false)
+    // const [wordlist, setWord] = useState([])
+    const [wordlist, setWord] = useContext(WordsContext)
 
-const handleOnChange=(event)=>{
-setText(event.target.value)
-setClick(false)
-}
-const onBtnClick=() =>{
-setClick(true)
-}    
+    const handleOnChange = (event) => {
+        setText(event.target.value)
+        setWord(event.target.value)
+        setClick(false)
+    }
+    const onBtnClick = (event) => {
+        setClick(true)
+        let arr = wordlist.split('');
+    }
 
     return (
         <div className="Translator">
@@ -23,15 +28,15 @@ setClick(true)
                     <legend>What do you want to translate? </legend>
                     <div>
                         <br></br>
-                        <input class="TransInput" type="text" value={text} onChange={handleOnChange} placeholder="Text to translate" ></input>
+                        <input className="TransInput" type="text" value={text} onChange={handleOnChange} placeholder="Text to translate" ></input>
                         <br></br>
                         <br></br>
-                        <button id="btn" >Translate</button>
+                        <button id="btn" onClick={onBtnClick}>Translate</button>
                         <br></br>
                         <br></br>
                         <br></br>
                         <br></br>
-                        <input class="TransInput" type="text" onClick={onBtnClick} placeholder="Image Output"></input>
+                        <input className="TransInput" type="text" placeholder="Image Output"></input>
                     </div>
                 </fieldset>
             </div>
