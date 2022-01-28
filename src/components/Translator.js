@@ -19,10 +19,12 @@ function Translator() {
                         <input class="TransInput" type="text" placeholder="Text to translate"></input>
                         <br></br>
                         <br></br>
-                        <input class="TransInput" type="text" placeholder="Image Output"></input>
-                        <br></br>
-                        <br></br>
                         <button id="btn" >Translate</button>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <input class="TransInput" type="text" placeholder="Image Output"></input>
                     </div>
                 </fieldset>
             </div>
