@@ -1,11 +1,16 @@
 import './App.css';
-import Login from './components/Login.js';
+import Login from "./components/Login"
+import Translator from "./components/Translator";
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <Login />
-    </div>
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Login />}></Route>
+      <Route path="/translator" element={<Translator />}></Route>
+    </Routes>
+  </BrowserRouter>
   );
 }
 
