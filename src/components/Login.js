@@ -6,6 +6,8 @@ function Login() {
     const [name, setName] = useState("")
     const [hasClick, setClick] = useState(false);
 
+    // const [user, setUser]=useContext(UserContext)
+
     const onBtnClick = () => {
         setClick(true);
     }
@@ -16,6 +18,7 @@ function Login() {
     return (
         <div className="Login" >
             <div >
+                {/* <h4>Current User is: {user.username}</h4> */}
                 <h1> My Translator </h1>
                 <div id="box">
 
