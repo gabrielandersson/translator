@@ -39,6 +39,7 @@ legend {
     border-radius: 5px;
     background-color: coral;
     padding: 10px;
-    margin-left: 70%;
     font-size: 20px;
+    width: fit-content;
+    float: right;
 }
