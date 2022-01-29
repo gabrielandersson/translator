@@ -1,17 +1,14 @@
 import './CSS/Translator.css';
 import { useContext, useState } from "react";
 import { WordsContext } from "../components/Context/WordsContext";
-import picture from "../assets/signs/a.png";
 import { pictures } from '../images.js';
 
 function Translator() {
 
     const [text, setText] = useState("")
-
-    // const [wordlist, setWord] = useState([])
     const [wordlist, setWord] = useContext(WordsContext)
     const [hasClick, setClick] = useState(false);
-    const [translatedImg, setImg] = useState([])   //here we try to store our image translations
+    const [images, setImages] = useState([]) 
 
     const handleOnChange = (event) => {
         setText(event.target.value)
@@ -20,27 +17,28 @@ function Translator() {
     }
     const onBtnClick = (event) => {
         setClick(true)
-            translate()
+        translate()
 
     }
-
+ 
     const translate = () => {
+        setImages([]);
         let result = [];
-        let arr = wordlist.split('');
-        const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]; 
-        
-           
+        let arr = wordlist.toLowerCase().split('');
+        const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
         for (let index = 0; index < arr.length; index++) {
-            
-            let position = alphabet.indexOf(arr[index].toLowerCase());
+
+            let position = alphabet.indexOf(arr[index]);
             result.push(pictures[position]);
 
+            setImages(images => {
+                return [...images, {
+                    id: images.length,
+                    value: pictures[position]
+                }]
+            });
         }
-
-        // PROBLEM HERE - we try to store our result array within a useState hook but when we try to log it out it returns empty.
-        console.log(result);
-        setImg(result);
-         console.log(translatedImg);
     }
 
     return (
@@ -61,10 +59,16 @@ function Translator() {
                         <br></br>
                         <br></br>
                         <div id="divBox">
-                            {hasClick && <img src={translatedImg}></img>}
-
+                            {hasClick &&
+                                <ul >
+                                    {
+                                        images.map(image => {
+                                            return <img key={image.id} src={image.value} alt=""></img>
+                                        })
+                                    }
+                                </ul>
+                            }
                         </div>
-                        {/* <input className="TransInput" type="text " placeholder="Image Output"></input> */}
                     </div>
                 </fieldset>
             </div>
