@@ -1,4 +1,4 @@
-const apiURL = 'https://trivia-game-noroff-api.herokuapp.com/translations';
+export const apiURL = 'https://trivia-game-noroff-api.herokuapp.com/translations';
 const apiKey = '334H7SGhAEiIPqPfCg+pfA==';
 
 async function login(username) {

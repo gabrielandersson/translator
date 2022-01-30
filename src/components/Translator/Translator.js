@@ -1,7 +1,7 @@
-import './CSS/Translator.css';
+import '../../css/Translator.css';
 import { useContext, useState } from "react";
-import { WordsContext } from "../components/Context/WordsContext";
-import { pictures } from '../images.js';
+import { WordsContext } from "../../contexts/WordsContext";
+import { pictures } from '../../images.js';
 
 function Translator() {
 
@@ -23,14 +23,13 @@ function Translator() {
  
     const translate = () => {
         setImages([]);
-        let result = [];
+
         let arr = wordlist.toLowerCase().split('');
         const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
         for (let index = 0; index < arr.length; index++) {
 
             let position = alphabet.indexOf(arr[index]);
-            result.push(pictures[position]);
 
             setImages(images => {
                 return [...images, {

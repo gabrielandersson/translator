@@ -1,5 +1,5 @@
 import { useState } from "react";
-import './CSS/Login.css';
+import '../../css/Login.css';
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -28,7 +28,7 @@ const onBtnClick = () => {
                         <legend>Enter Username</legend>
                         <div>
                             <br></br>
-                            <input type="text" value={name} placeholder="Enter name" onChange={handleChange}></input>
+                            <input type="text" value={name} placeholder="Enter user name" onChange={handleChange}></input>
                             <br></br>
                             <br></br>
                             <button id="btn" onClick={onBtnClick}> Continue </button>
