@@ -1,8 +1,11 @@
 import { useForm } from 'react-hook-form';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import '../../css/Login.css';
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { loginUser } from "../../api/user"
+import { saveStorage } from "../../utils/storage.js";
+import { useUser } from '../../contexts/UserContext';
+
 
 const usernameConfig = {
     required: true,
@@ -12,25 +15,36 @@ const usernameConfig = {
 function Login() {
 
     const [loading, setLoading] = useState(false);
+    const [apiError, setApiError] = useState(null);
+    const { user, setUser } = useUser();
+    let navigate = useNavigate(); 
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors }
-    } = useForm();
+    useEffect(() => {
+        if (user !== null) {
+            navigate("profile");
+        }
+    }, [user, navigate])
 
-    let navigate = useNavigate();
+
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    
 
 
     const onBtnClick = async ({ username }) => {
         setLoading(true);
-        const [error, user] = await loginUser(username);
-        console.log("Error", error);
-        console.log("User", user);
-        let path = 'translator';
+        const [error, userResponse] = await loginUser(username);
 
+        if (error !== null) {
+            setApiError(error);
+        }
+        if (userResponse !== null) {
+            saveStorage("translator-user", userResponse);
+            setUser(userResponse);
+        }
+        let path = 'translator';
         navigate(path);
         setLoading(false);
+
     }
 
     const errorMessage = (() => {
@@ -56,14 +70,15 @@ function Login() {
                             <legend>Enter Username</legend>
                             <div>
                                 <br></br>
-                                <input type="text" {...register("username", usernameConfig)} placeholder="Enter user name"></input>
+                                <input type="text" {...register("username", usernameConfig)} placeholder="Enter username"></input>
 
                                 <br></br>
                                 <br></br>
-                                <button type="submit" id="btn" disabled={ loading } > Continue </button>
+                                <button type="submit" id="btn" disabled={loading} > Continue </button>
                                 {loading &&
                                     <h2>Logging in..</h2>
                                 }
+                                {apiError && <p>{apiError}</p>}
                             </div>
                             {errorMessage}
                         </fieldset>
