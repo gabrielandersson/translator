@@ -1,68 +1,72 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { apiUrl } from "../../api/user.js";
+import withAuth from "../../hoc/withAuth.jsx";
+import { useUser } from "../../contexts/UserContext.js";
+import { fetchUserById } from "../../api/user";
+import { STORAGE_KEY_USER } from "../../consts/storage"
+import { saveStorage } from "../../utils/storage"
 
 const Profile = () => {
-    // const apiURL = 'https://trivia-game-noroff-api.herokuapp.com/translations'
-  
-    const [userData, setUserData] = useState([]);
-    const [id, setId] = useState(1);
+    const { user, setUser } = useUser();
+    const navigate = useNavigate();
+
 
     useEffect(() => {
-     fetch(`https://trivia-game-noroff-api.herokuapp.com/translations/`)
-     .then(response => response.json())
-     .then(data => {
-         console.log(data[0])
-         setUserData({
-            id: data[0].id,
-            name: data[0].username,
-            translations: data[0].translations
-         });
-     }) 
-      }, [id]);
 
-  const userProfile = (userMeta) => {
-      const  {
-          id: {id},
-          name: {username},
-          translations: {translations}
-      } = userMeta;
-  }
-    
+        const findUser = async () => {
+            const [error, latestUser] = await fetchUserById(user.id);
+            if (error === null) {
+                saveStorage(STORAGE_KEY_USER, latestUser);
+                setUser(latestUser);
+            }
+        }
+        findUser()
+    }, [setUser, user.id])
 
-    const navigate = useNavigate();
 
     const startPage = () => {
         navigate("/")
     }
 
-    async function getUser(id) {
-        const response = await fetch(`${apiUrl}/${id}`);
-        const data = await response.json();
-       
+    const latestTen = [];
+    if (user.translations.length > 10) {
+
+        for (let index = 0; index < 10; index++) {
+            latestTen.push(user.translations[(user.translations.length - 1) - index]);
+        }
     }
-
-
-
+    if(user.translations.length < 10){
+        for (let index = 0; index < user.translations.length; index++) {
+            latestTen.push(user.translations[(user.translations.length -1) - index]); 
+        }
+    }
+    
+    const translationsList = latestTen.map((translation, index) => <li key={index}>{translation}</li>);
 
     return (
         <div className="Profile">
-            <h1> My Translator </h1>
+            <h1> My Translator profile page </h1>
             <div id="box">
                 <fieldset >
-                    <legend>Your latest translations </legend>
-                    {/* <UserList userProfile={userProfile} /> */}
-                    {userData.map(user => (
-                        <div className="user-preview" key={user.id}>
-                            <p>{user}</p>
-                            
-                        </div>
-                    ))}
-                    <button type="button" id="btn" onClick={startPage}>Back to Login</button>
+                    <legend>Welcome {user.username} </legend>
+                    <br></br>
+                    <br></br>
+                    <fieldset id="translationhistory">
+                        <legend id="translation-legend">Translation History</legend>
+                        <ul>
+                            {translationsList}
+                        </ul>
+
+                        <br></br>
+                    </fieldset>
+
+
+                    <button type="button" id="go-back-btn" onClick={startPage}>Back to Login</button>
+                    <button type="button" id="clear-history-btn" onClick={startPage}>Clear history</button>
                 </fieldset>
             </div>
         </div>
     )
 }
 
-export { Profile }
+export default withAuth(Profile);

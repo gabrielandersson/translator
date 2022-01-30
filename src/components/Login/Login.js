@@ -5,6 +5,7 @@ import { useNavigate} from "react-router-dom";
 import { loginUser } from "../../api/user"
 import { saveStorage } from "../../utils/storage.js";
 import { useUser } from '../../contexts/UserContext';
+import { STORAGE_KEY_USER } from '../../consts/storage';
 
 
 const usernameConfig = {
@@ -21,7 +22,7 @@ function Login() {
 
     useEffect(() => {
         if (user !== null) {
-            navigate("profile");
+            navigate("translator");
         }
     }, [user, navigate])
 
@@ -38,13 +39,11 @@ function Login() {
             setApiError(error);
         }
         if (userResponse !== null) {
-            saveStorage("translator-user", userResponse);
+            saveStorage(STORAGE_KEY_USER, userResponse);
             setUser(userResponse);
         }
-        let path = 'translator';
-        navigate(path);
+        navigate("translator");
         setLoading(false);
-
     }
 
     const errorMessage = (() => {

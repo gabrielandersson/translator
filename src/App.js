@@ -4,7 +4,7 @@ import Translator from "./components/Translator/Translator";
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import UserProvider from "./contexts/UserContext"
 import WordsProvider from "./contexts/WordsContext"
-import {Profile} from './components/Profile/Profile';
+import Profile from './components/Profile/Profile';
 
 
 function App() {

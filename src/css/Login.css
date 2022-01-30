@@ -1,10 +1,10 @@
-#box{
+#box {
     margin-top: 20px;
     margin-left: 20px;
 }
 
 fieldset {
-    border-radius: 2px;
+    border-radius: 8px;
     border-style: solid;
     /* display: block; */
     float: left;
@@ -14,13 +14,14 @@ fieldset {
     border-width: 8px;
     background-color: rgb(205, 201, 241);
 }
+
 h1 {
     text-align: left;
     background-color: chocolate;
     margin: 0;
 }
 
-input{
+input {
     font-size: 25px;
 }
 
