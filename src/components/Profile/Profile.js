@@ -35,7 +35,7 @@ const Profile = () => {
             latestTen.push(user.translations[(user.translations.length - 1) - index]);
         }
     }
-    if(user.translations.length < 10){
+    if(user.translations.length <= 10){
         for (let index = 0; index < user.translations.length; index++) {
             latestTen.push(user.translations[(user.translations.length -1) - index]); 
         }
