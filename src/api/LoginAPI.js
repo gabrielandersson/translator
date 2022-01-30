@@ -1,5 +1,4 @@
 export const apiURL = 'https://trivia-game-noroff-api.herokuapp.com/translations';
-const apiKey = '334H7SGhAEiIPqPfCg+pfA==';
 
 async function login(username) {
     const response = await fetch(`${apiURL}?username=${username}`);
@@ -26,7 +25,7 @@ async function createUser(username) {
         {
             method: 'POST',
             headers: {
-                'X-API-Key': apiKey,
+                'X-API-Key': process.env.REACT_APP_API_KEY,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({

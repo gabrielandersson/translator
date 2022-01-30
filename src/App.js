@@ -8,6 +8,8 @@ import {Profile} from './components/Profile/Profile';
 
 
 function App() {
+  console.log(
+  )
   return (
     <UserProvider>
       <WordsProvider>
