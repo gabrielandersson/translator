@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { apiURL } from "../../api/LoginAPI.js";
+import { apiUrl } from "../../api/user.js";
 
 const Profile = () => {
     // const apiURL = 'https://trivia-game-noroff-api.herokuapp.com/translations'
@@ -37,7 +37,7 @@ const Profile = () => {
     }
 
     async function getUser(id) {
-        const response = await fetch(`${apiURL}/${id}`);
+        const response = await fetch(`${apiUrl}/${id}`);
         const data = await response.json();
        
     }

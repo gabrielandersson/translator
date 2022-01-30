@@ -1,40 +1,73 @@
+import { useForm } from 'react-hook-form';
 import { useState } from "react";
 import '../../css/Login.css';
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../api/user"
+
+const usernameConfig = {
+    required: true,
+    minLength: 4
+}
 
 function Login() {
 
-const [name, setName] = useState("")
-const [hasClick, setClick] = useState(false);
-let navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors }
+    } = useForm();
+
+    let navigate = useNavigate();
 
 
-const onBtnClick = () => {
+    const onBtnClick = async ({ username }) => {
+        setLoading(true);
+        const [error, user] = await loginUser(username);
+        console.log("Error", error);
+        console.log("User", user);
         let path = 'translator';
+
         navigate(path);
-        setClick(true);
+        setLoading(false);
     }
-    const handleChange = (event) => {
-        setName(event.target.value);
-        setClick(false);
-    }
+
+    const errorMessage = (() => {
+        if (!errors.username) {
+            return null;
+        }
+        if (errors.username.type === "required") {
+            return <span>Username is required</span>
+        }
+        if (errors.username.type === "minLength") {
+            return <span>Username needs to be a minimum of 4 characters</span>
+        }
+    })()
+
     return (
         <div className="Login" >
             <div >
                 <h1> My Translator </h1>
                 <div id="box">
 
-                    <fieldset>
-                        <legend>Enter Username</legend>
-                        <div>
-                            <br></br>
-                            <input type="text" value={name} placeholder="Enter user name" onChange={handleChange}></input>
-                            <br></br>
-                            <br></br>
-                            <button id="btn" onClick={onBtnClick}> Continue </button>
-                            {hasClick && <h2> {name}</h2>}
-                        </div>
-                    </fieldset>
+                    <form onSubmit={handleSubmit(onBtnClick)}>
+                        <fieldset>
+                            <legend>Enter Username</legend>
+                            <div>
+                                <br></br>
+                                <input type="text" {...register("username", usernameConfig)} placeholder="Enter user name"></input>
+
+                                <br></br>
+                                <br></br>
+                                <button type="submit" id="btn" disabled={ loading } > Continue </button>
+                                {loading &&
+                                    <h2>Logging in..</h2>
+                                }
+                            </div>
+                            {errorMessage}
+                        </fieldset>
+                    </form>
                 </div>
             </div>
         </div>

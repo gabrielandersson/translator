@@ -1,7 +1,7 @@
-export const apiURL = 'https://trivia-game-noroff-api.herokuapp.com/translations';
+import {apiUrl} from "./user.js"
 
 async function login(username) {
-    const response = await fetch(`${apiURL}?username=${username}`);
+    const response = await fetch(`${apiUrl}?username=${username}`);
     const data = await response.json();
     return data.find((x) => x.username === username);
 }
@@ -21,7 +21,7 @@ export async function loginAPI(username) {
 }
 
 async function createUser(username) {
-    const response = await fetch(`${apiURL}`,
+    const response = await fetch(`${apiUrl}`,
         {
             method: 'POST',
             headers: {
