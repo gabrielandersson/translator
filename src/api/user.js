@@ -68,11 +68,10 @@ export const pushTranslation = async (user, translation) => {
                 translations: [...user.translations, translation]
             })
         })
-
+        
         if (!response.ok) {
             throw new Error("Could not update translation history")
         }
-        
         const result = await response.json();
         return [null, result];
     } catch (error) {
