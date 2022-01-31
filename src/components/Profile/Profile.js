@@ -4,7 +4,9 @@ import withAuth from "../../hoc/withAuth.jsx";
 import { useUser } from "../../contexts/UserContext.js";
 import { fetchUserById } from "../../api/user";
 import { STORAGE_KEY_USER } from "../../consts/storage"
-import { saveStorage } from "../../utils/storage"
+import "../../css/Profile.css"
+import { deleteStorage, readStorage, saveStorage } from "../../utils/storage"
+
 
 const Profile = () => {
     const { user, setUser } = useUser();
@@ -25,8 +27,16 @@ const Profile = () => {
 
 
     const startPage = () => {
-        navigate("/")
+
+        deleteStorage(STORAGE_KEY_USER)
+        setUser(null)
     }
+
+    const clearHistory = () => {
+
+    }
+
+
 
     const latestTen = [];
     if (user.translations.length > 10) {
@@ -35,34 +45,38 @@ const Profile = () => {
             latestTen.push(user.translations[(user.translations.length - 1) - index]);
         }
     }
-    if(user.translations.length <= 10){
+    if (user.translations.length <= 10) {
         for (let index = 0; index < user.translations.length; index++) {
-            latestTen.push(user.translations[(user.translations.length -1) - index]); 
+            latestTen.push(user.translations[(user.translations.length - 1) - index]);
         }
     }
-    
+
     const translationsList = latestTen.map((translation, index) => <li key={index}>{translation}</li>);
 
     return (
         <div className="Profile">
             <h1> My Translator profile page </h1>
             <div id="box">
-                <fieldset >
-                    <legend>Welcome {user.username} </legend>
+                <fieldset id="welcome">
+                    <legend id="welcome-legend">Welcome {user.username} </legend>
+                    <br></br>
+                    <div id="history-div">
+                        <fieldset id="history">
+                            <legend id="history-legend">Translation History</legend>
+                            <ul>
+                                {translationsList}
+                            </ul>
+
+
+                        </fieldset>
+
+                    </div>
                     <br></br>
                     <br></br>
-                    <fieldset id="translationhistory">
-                        <legend id="translation-legend">Translation History</legend>
-                        <ul>
-                            {translationsList}
-                        </ul>
-
-                        <br></br>
-                    </fieldset>
-
-
-                    <button type="button" id="go-back-btn" onClick={startPage}>Back to Login</button>
-                    <button type="button" id="clear-history-btn" onClick={startPage}>Clear history</button>
+                    <div className="btn-div">
+                        <button type="button" id="btn" onClick={startPage}>Logout</button>
+                        <button type="button" id="btn" onClick={clearHistory}>Clear history</button>
+                    </div>
                 </fieldset>
             </div>
         </div>

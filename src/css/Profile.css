@@ -1,0 +1,29 @@
+#welcome{
+    border-radius: 8px;
+    border-style: solid;
+    border-color: rgb(58, 75, 231);
+    border-width: 8px;
+    background-color: rgb(205, 201, 241);
+    min-width: 400px;
+}
+
+#welcome-legend{
+    color: blue;
+}
+
+#history{
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 5px;
+    width: fit-content;
+}
+
+#history-legend{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+
+#history-div{
+    display: inline-block;
+    margin: 0;
+}

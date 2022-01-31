@@ -3,31 +3,21 @@
     width: 600px;
     font-size: 25px;
 }
+ p{
+font-size: 25px;
+ }
 
-#translationshistory {
-    background-color: aqua;
+ #divBox {
+    min-width: 8rem;
+    width: 50vw;
+    max-width: 60rem;
+    padding: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: calc(var(--sign-size) / 2);
 }
 
-#clear-history-btn {
-    margin-top: 20px;
-
-    border-radius: 5px;
-    background-color: coral;
-    padding: 10px;
-    font-size: 20px;
-    width: fit-content;
-    float: right;
-    width: 100px;
-}
-
-#go-back-btn {
-   
-    margin-top: 20px;
-    border-radius: 5px;
-    background-color: coral;
-    padding: 10px;
-    font-size: 20px;
-    width: fit-content;
-    float: right;
-    width:100px;
+#sign{
+    max-width: 100px;
+    
 }

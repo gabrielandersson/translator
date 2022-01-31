@@ -6,7 +6,6 @@
 fieldset {
     border-radius: 8px;
     border-style: solid;
-    /* display: block; */
     float: left;
     width: 30%;
     padding: 20px;
@@ -42,5 +41,11 @@ legend {
     padding: 10px;
     font-size: 20px;
     width: fit-content;
+    float: right;
+    margin-left: 10px;
+}
+
+.btn-div{
+    margin-top: 10px;
     float: right;
 }

@@ -14,3 +14,7 @@ export const readStorage = key => {
 
     return null;
 }
+
+export const deleteStorage=key=>{
+    localStorage.removeItem(key);
+}

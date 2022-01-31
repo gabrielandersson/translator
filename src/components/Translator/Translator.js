@@ -14,7 +14,6 @@ import { useNavigate } from "react-router-dom";
 function Translator() {
 
     const { user, setUser } = useUser();
- 
 
     const [text, setText] = useState("")
     const [wordlist, setWord] = useContext(WordsContext)
@@ -30,24 +29,24 @@ function Translator() {
     const onBtnClick = () => {
         setClick(true)
         translate()
-
+        setText("");
     }
     const profilePage = () => {
-        
+
         navigate("/profile")
     }
 
-    const translate = async() => {
+    const translate = async () => {
         setImages([]);
 
         let arr = wordlist.toLowerCase().split('');
         const [error, updatedUser] = await pushTranslation(user, wordlist);
-        if(error !== null){
+        if (error !== null) {
             return;
         }
         saveStorage(STORAGE_KEY_USER, updatedUser);
         setUser(updatedUser);
-        
+
         const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
         for (let index = 0; index < arr.length; index++) {
@@ -61,6 +60,7 @@ function Translator() {
                 }]
             });
         }
+
     }
 
     return (
@@ -69,16 +69,17 @@ function Translator() {
             <div id="box">
                 <fieldset >
                     <legend>What do you want to translate? </legend>
-                     <button id="btn" onClick={profilePage}>Profile page</button>
                     <div>
                         <br></br>
                         <input className="TransInput" type="text" value={text} onChange={handleOnChange} placeholder="Text to translate" ></input>
                         <br></br>
-                        <br></br>
+                        {hasClick && <p>{wordlist}</p>}
+                        <div className="btn-div">
                         <button id="btn" onClick={onBtnClick}>Translate</button>
+                        <button id="btn" onClick={profilePage}>Profile page</button>
 
-                        <br></br>
-                        <br></br>
+                        </div>
+
                         <br></br>
                         <br></br>
                         <div id="divBox">
@@ -86,12 +87,12 @@ function Translator() {
                                 <ul >
                                     {
                                         images.map(image => {
-                                            return <img key={image.id} src={image.value} alt=""></img>
+                                            return <img key={image.id} src={image.value} alt="" id="sign" ></img>
                                         })
                                     }
                                 </ul>
                             }
-                           
+
                         </div>
                     </div>
                 </fieldset>
