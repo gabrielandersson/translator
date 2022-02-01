@@ -5,8 +5,6 @@ import { pictures } from '../../images.js';
 import withAuth from '../../hoc/withAuth';
 import { pushTranslation } from '../../api/user';
 import { useUser } from '../../contexts/UserContext';
-import { apiUrl } from '../../api/user';
-import { createHeaders } from '../../api';
 import { saveStorage } from '../../utils/storage';
 import { STORAGE_KEY_USER } from '../../consts/storage';
 import { useNavigate } from "react-router-dom";
