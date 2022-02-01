@@ -33,6 +33,10 @@ const Profile = () => {
         setUser(null)
     }
 
+    const translationPage=()=>{
+        navigate("/translator")
+    }
+
     const setDeleted = async () => {
        
             if (window.confirm("Are you sure? Clicking this button will delete all of your translation history")) {
@@ -78,6 +82,7 @@ const Profile = () => {
                     <div className="btn-div">
                         <button type="button" id="btn" onClick={startPage}>Logout</button>
                         <button type="button" id="btn" onClick={setDeleted}>Clear history</button>
+                        <button type="button" id="btn" onClick={translationPage}>Back</button>
                     </div>
                 </fieldset>
             </div>
