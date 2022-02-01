@@ -6,7 +6,7 @@ import UserProvider from "./contexts/UserContext"
 import WordsProvider from "./contexts/WordsContext"
 import Profile from './components/Profile/Profile';
 
-
+//Here we wrap the different Route paths to make different aspects of application-state accessible to the wrapped react components
 function App() {
   return (
     <UserProvider>

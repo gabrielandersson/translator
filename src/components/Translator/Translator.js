@@ -12,28 +12,31 @@ import { useNavigate } from "react-router-dom";
 function Translator() {
 
     const { user, setUser } = useUser();
-
     const [text, setText] = useState("")
     const [wordlist, setWord] = useContext(WordsContext)
     const [hasClick, setClick] = useState(false);
     const [images, setImages] = useState([])
     const navigate = useNavigate();
 
+// Stores the value of the input text
     const handleOnChange = (event) => {
         setText(event.target.value)
         setWord(event.target.value)
         setClick(false)
     }
+// Initiate functionality on button click
     const onBtnClick = () => {
         setClick(true)
         translate()
         setText("");
     }
+// Navigate to profilepage
     const profilePage = () => {
-
         navigate("/profile")
     }
-
+//When the button is clicked it calls on this method to fetch the user-input to be translated 
+//we set the input to lowercase and split it up in order to match the characters with the pictures
+//Inside the for-loop we get the position in the alphabet and then we supply the matching image for that character
     const translate = async () => {
         setImages([]);
 
@@ -58,7 +61,6 @@ function Translator() {
                 }]
             });
         }
-
     }
 
     return (

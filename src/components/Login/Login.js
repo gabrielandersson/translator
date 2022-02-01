@@ -7,19 +7,26 @@ import { saveStorage } from "../../utils/storage.js";
 import { useUser } from '../../contexts/UserContext';
 import { STORAGE_KEY_USER } from '../../consts/storage';
 
+////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                        //
+// The functions in this file are heavily influenced and in some cases directly mimicked  //
+// from Dewalds example videos.                                                           //
+//                                                                                        //
+////////////////////////////////////////////////////////////////////////////////////////////
 
 const usernameConfig = {
     required: true,
     minLength: 4
 }
-
+//The <Login /> function component starts here
 function Login() {
 
     const [loading, setLoading] = useState(false);
     const [apiError, setApiError] = useState(null);
     const { user, setUser } = useUser();
     let navigate = useNavigate(); 
-
+    
+// Navigates user to translator page if user exists
     useEffect(() => {
         if (user !== null) {
             navigate("translator");
@@ -29,8 +36,7 @@ function Login() {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     
-
-
+// Saves the current user to the localstorage and navigates to user to the next page = (./translation)
     const onBtnClick = async ({ username }) => {
         setLoading(true);
         const [error, userResponse] = await loginUser(username);
@@ -45,7 +51,7 @@ function Login() {
         navigate("translator");
         setLoading(false);
     }
-
+// Prints any type of error that may appear during sign in to the user
     const errorMessage = (() => {
         if (!errors.username) {
             return null;
@@ -77,7 +83,7 @@ function Login() {
                                 {loading &&
                                     <h2>Logging in..</h2>
                                 }
-                                {apiError && <p>{apiError}</p>}
+                                {apiError && <p>{apiError}</p>} 
                             </div>
                             {errorMessage}
                         </fieldset>

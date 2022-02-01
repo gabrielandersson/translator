@@ -2,13 +2,12 @@ import { createContext, useContext, useState } from "react";
 import { STORAGE_KEY_USER } from "../consts/storage";
 import { readStorage } from "../utils/storage";
 
-//expose
+
+
+
 const UserContext = createContext();
 
-
-
-
-//provides a state manager for user
+//provides a state manager for the user
 const UserProvider=(props)=>{
 const [user, setUser] = useState(readStorage(STORAGE_KEY_USER));
 
@@ -23,6 +22,7 @@ return(
 );
 };
 
+//custom hook that Dewald uses in his example videos to supply a context 
 export const useUser = () => {
     return useContext(UserContext)
 }
