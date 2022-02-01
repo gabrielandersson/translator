@@ -33,6 +33,10 @@ const Profile = () => {
         setUser(null)
     }
 
+    const clearHistory=()=>{
+
+    }
+
     const setDeleted = async () => {
        
             if (window.confirm("Are you sure? Clicking this button will delete all of your translation history")) {
