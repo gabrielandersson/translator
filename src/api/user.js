@@ -1,4 +1,3 @@
-import { useUser } from "../contexts/UserContext";
 import { createHeaders } from "./index"
 
 export const apiUrl = process.env.REACT_APP_API_URL;
@@ -32,6 +31,23 @@ export const fetchUserById = async (userId) => {
     }
 }
 
+export const clearTranslationHistory = async (user) => {
+    try {
+      
+        const response = await fetch(`${apiUrl}/${user.id}`, {
+            method: "PATCH",
+            headers: createHeaders(),
+            body: JSON.stringify({...user})
+        })
+        if (!response.ok) {
+            throw new Error("could not update translations")
+        }
+        const result = await response.json(); 
+        return[null, result]
+    } catch (error) {
+        return [error.message, null];
+    }
+}
 
 
 export const createUser = async (username) => {
@@ -39,9 +55,12 @@ export const createUser = async (username) => {
         const response = await fetch(apiUrl, {
             method: "POST",
             headers: createHeaders(),
-            body: JSON.stringify({
+            body: JSON.stringify({ 
                 username,
-                translations: []
+                translations: [{
+                    translationtxt: "", 
+                    isDeleted: false
+                }]
             })
         })
 
@@ -65,7 +84,7 @@ export const pushTranslation = async (user, translation) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                translations: [...user.translations, translation]
+                translations: [...user.translations, { translationtxt: translation, isDeleted: false, id: user.translations.length }]
             })
         })
 
