@@ -20,19 +20,27 @@ export const lookForUser = async (username) => {
 
 export const fetchUserById = async (userId) => {
     try {
-        const response = await fetch(`${apiUrl}/${userId}`)
+        const response = await fetch(`${apiUrl}/${user.id}`, {
+            method: 'PATCH',
+            headers: {
+                'X-API-Key': apiKey,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                translations: ["hej"]
+            })
+        });
         if (!response.ok) {
             throw new Error("Could not fetch user");
         }
-        const user = await response.json();
+        let user = await response.json();
+        user.translations = user.translations.map(x => ({ translation: x, deleted: false }));
         return [null, user];
 
     } catch (error) {
         return [error.message, null]
     }
 }
-
-
 
 export const createUser = async (username) => {
     try {
@@ -65,14 +73,15 @@ export const pushTranslation = async (user, translation) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                translations: [...user.translations, translation]
+                translations: [ ...user.translations.map(x => x.translation), translation ]
             })
         })
         
         if (!response.ok) {
             throw new Error("Could not update translation history")
         }
-        const result = await response.json();
+        let result = await response.json();
+        result.translations = result.translations.map(x => ({ translation: x, deleted: false }));
         return [null, result];
     } catch (error) {
         return [error.message, null]
@@ -82,15 +91,17 @@ export const pushTranslation = async (user, translation) => {
 
 export const loginUser = async (username) => {
 
-    const [checkError, user] = await lookForUser(username);
+    const [checkError, users] = await lookForUser(username);
 
     if (checkError !== null) {
 
         return [checkError, null];
     }
-    if (user.length > 0) {
+    if (users.length > 0) {
+        let user = users.pop();
+        user.translations = user.translations.map(x => ({ translation: x, deleted: false }));
 
-        return [null, user.pop()];
+        return [null, user];
     }
 
     return await createUser(username);

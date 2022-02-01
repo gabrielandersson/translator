@@ -8,13 +8,13 @@ export const saveStorage = (key, value) => {
 
 export const readStorage = key => {
     const data = localStorage.getItem(key);
-    if(data){
+    if (data) {
         return JSON.parse(data);
     }
 
     return null;
 }
 
-export const deleteStorage=key=>{
+export const deleteStorage = key => {
     localStorage.removeItem(key);
 }

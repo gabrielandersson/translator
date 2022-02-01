@@ -38,17 +38,17 @@ function Translator() {
 
     const translate = async () => {
         setImages([]);
-
-        let arr = wordlist.toLowerCase().split('');
         const [error, updatedUser] = await pushTranslation(user, wordlist);
         if (error !== null) {
             return;
         }
+        
         saveStorage(STORAGE_KEY_USER, updatedUser);
         setUser(updatedUser);
-
+        
         const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-
+        
+        const arr = wordlist.toLowerCase().split('');
         for (let index = 0; index < arr.length; index++) {
 
             let position = alphabet.indexOf(arr[index]);

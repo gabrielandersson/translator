@@ -5,9 +5,6 @@ import { readStorage } from "../utils/storage";
 //expose
 const UserContext = createContext();
 
-
-
-
 //provides a state manager for user
 const UserProvider=(props)=>{
 const [user, setUser] = useState(readStorage(STORAGE_KEY_USER));
